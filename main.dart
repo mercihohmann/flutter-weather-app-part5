@@ -13,20 +13,20 @@ class WeatherApp extends StatefulWidget {
 }
 
 class _WeatherAppState extends State<WeatherApp> {
-  int temperature;
-  var minTemperatureForecast = new List(7);
-  var maxTemperatureForecast = new List(7);
+  int temperature = 0;
+  List<int> minTemperatureForecast = List.filled(7, 0);
+  List<int> maxTemperatureForecast = List.filled(7, 0);
   String location = 'San Francisco';
   int woeid = 2487956;
   String weather = 'clear';
   String abbreviation = '';
-  var abbreviationForecast = new List(7);
+ List<String> abbreviationForecast = List.filled(7, '');
   String errorMessage = '';
 
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
-  Position _currentPosition;
-  String _currentAddress;
+  late Position _currentPosition;
+  late String _currentAddress;
 
   String searchApiUrl =
       'https://www.metaweather.com/api/location/search/?query=';
@@ -90,9 +90,9 @@ class _WeatherAppState extends State<WeatherApp> {
   }
 
   void onTextFieldSubmitted(String input) async {
-    await fetchSearch(input);
-    await fetchLocation();
-    await fetchLocationDay();
+    fetchSearch(input);
+    fetchLocation();
+    fetchLocationDay();
   }
 
   _getCurrentLocation() {
